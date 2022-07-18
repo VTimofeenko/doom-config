@@ -96,7 +96,7 @@
 ;; More intuitive open link shortcut
 (map! :leader
       (
-       :prefix-map ("l", "link")
+       :prefix-map ("l" . "link")
        :desc "Open link at cursor" "o" #'org-open-at-point
        )
       )
