@@ -138,3 +138,6 @@
 
 ;; Keep the log within the heading
 (setq org-log-into-drawer "LOGBOOK")
+
+;; Spelling personal file location
+(setq ispell-personal-dictionary "~/.cache/aspell.pws")
