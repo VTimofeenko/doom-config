@@ -1,0 +1,29 @@
+This is a [[https://github.com/doomemacs/doomemacs][doom emacs]] configuration that is installable through Nix flake.
+
+* Installation
+
+Add following to ~configuration.nix~:
+
+#+BEGIN_SRC nix
+inputs = {
+  my-doom-config = {
+    url = "github:VTimofeenko/doom-config";
+  };
+  ...
+};
+outputs = inputs@{ ... }: {
+  ...
+    { # Wherever modules are defined
+      home-manager.users.username = inputs.my-doom-config.nixosModules.default;
+    }
+}
+#+END_SRC
+
+* Using without Nix
+
+This config should work if it's setup as DOOMDIR in current environment:
+
+#+BEGIN_SRC sh
+export DOOMDIR="/path/to/clone/doom.d"
+emacs
+#+END_SRC
