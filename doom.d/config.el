@@ -141,3 +141,27 @@
 
 ;; Spelling personal file location
 (setq ispell-personal-dictionary "~/.cache/aspell.pws")
+
+;; Image capturing
+;; Original from zzamboni
+(defun zz/org-download-paste-clipboard (&optional use-default-filename)
+  (interactive "P")
+  (require 'org-download)
+  (let ((file
+         (if (not use-default-filename)
+             (read-string (format "Filename [%s]: "
+                                  org-download-screenshot-basename)
+                          nil nil org-download-screenshot-basename)
+           nil)))
+    (org-download-clipboard file)))
+
+(after! org
+  (setq org-download-method 'directory)
+  (setq org-download-image-dir "images")
+  (setq org-download-heading-lvl nil)
+  (setq org-download-timestamp "%Y%m%d-%H%M%S_")
+  (setq org-image-actual-width 300)
+  (map! :leader
+        :prefix-map ("v" . "paste")
+        (:desc "Paste image from clipboard" "i" #'zz/org-download-paste-clipboard))
+

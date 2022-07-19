@@ -13,6 +13,7 @@
           extraPackages = epkgs: with epkgs; [
             evil-terminal-cursor-changer
             openwith
+            org-download
           ];
         };
         home.packages = with pkgs; [

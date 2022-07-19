@@ -52,3 +52,5 @@
 (package! evil-terminal-cursor-changer)
 ;; Custom xdg-open shortcuts
 (package! openwith)
+;; To embed screenshots
+(package! org-download)
