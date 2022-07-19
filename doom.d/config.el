@@ -122,7 +122,7 @@
 (after! org
         (add-to-list 'org-capture-templates
                      '(
-                       "m", "Meeting" entry
+                       "m" "Meeting" entry
                        (file+headline "~/org/inbox.org" "Meetings")
                        "* %T %?\n\nMet with%i"
                        :prepend t :kill-buffer t
