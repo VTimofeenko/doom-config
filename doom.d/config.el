@@ -164,7 +164,12 @@
   (map! :leader
         :prefix-map ("v" . "paste")
         (:desc "Paste image from clipboard" "i" #'zz/org-download-paste-clipboard))
+  )
 
-(use-package! org-transclusion
-  :after org
-  :init)
+;; mac specific settings
+(when (eq system-type 'darwin)
+  ;; https://github.com/nobiot/org-transclusion/issues/52
+  (advice-remove 'org-link-search '+org--recenter-after-follow-link-a)
+  (use-package! org-transclusion
+                :after org
+                :init))
