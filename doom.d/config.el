@@ -110,12 +110,12 @@
       )
 
 ;; Open png using xdg-open
-(use-package! openwith
-              :after-call pre-command-hook
-              :config
-              (openwith-mode t)
-              (add-to-list 'openwith-associations '("\\.png\\'" "xdg-open" (file)))
-              )
+;; (use-package! openwith
+;;               :after-call pre-command-hook
+;;               :config
+;;               (openwith-mode t)
+;;               (add-to-list 'openwith-associations '("\\.png\\'" "xdg-open" (file)))
+;;               )
 
 
 ;; Custom template to capture a meeting
