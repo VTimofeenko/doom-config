@@ -1,5 +1,12 @@
 #+title: Project notes
 
+* To be done:
+
+** TODO proper desktop shortcut for Nix
+
+** TODO correct Nix example above
+
+The example in Installation section shows a lot of red on Github. Better fix it.
 
 * Bookmarks
 
