@@ -165,3 +165,6 @@
         :prefix-map ("v" . "paste")
         (:desc "Paste image from clipboard" "i" #'zz/org-download-paste-clipboard))
 
+(use-package! org-transclusion
+  :after org
+  :init)

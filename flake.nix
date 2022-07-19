@@ -14,6 +14,7 @@
             evil-terminal-cursor-changer
             openwith
             org-download
+            org-transclusion
           ];
         };
         home.packages = with pkgs; [

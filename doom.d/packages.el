@@ -54,3 +54,5 @@
 (package! openwith)
 ;; To embed screenshots
 (package! org-download)
+;; Add transclusion support
+(package! org-transclusion)
