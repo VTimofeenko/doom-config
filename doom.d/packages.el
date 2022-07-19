@@ -54,5 +54,6 @@
 (package! openwith)
 ;; To embed screenshots
 (package! org-download)
-;; Add transclusion support
-(package! org-transclusion)
+;; Add transclusion support, but only for mac
+(when (eq system-type 'darwin) ;; mac specific settings
+  (package! org-transclusion))
