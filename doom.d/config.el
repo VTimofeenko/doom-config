@@ -173,3 +173,6 @@
   (use-package! org-transclusion
                 :after org
                 :init))
+
+;; Change archive location
+(setq org-archive-location ".archive/%s_archive::")
