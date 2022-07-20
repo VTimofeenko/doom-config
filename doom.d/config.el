@@ -179,3 +179,6 @@
 
 ;; Add lines of context
 (setq scroll-margin 5)
+
+;; Automatically format .nix files on save
+(add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode)

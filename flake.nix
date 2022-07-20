@@ -14,6 +14,9 @@
             evil-terminal-cursor-changer
             openwith
             org-download
+            tree-sitter
+            tree-sitter-langs
+            nixpkgs-fmt
             # Broken as of Jul 18 2022
             # org-transclusion
           ];
@@ -24,6 +27,7 @@
           aspellDicts.ru
           aspellDicts.en-computers
           aspellDicts.en-science
+          nixpkgs-fmt
         ];
         home.file.".aspell.conf".text = "data-dir ${pkgs.aspell}/lib/aspell";
       })
