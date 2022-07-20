@@ -5,7 +5,8 @@
 ** DONE proper desktop shortcut for Nix
 CLOSED: [2022-07-20 Wed 14:02]
 
-** TODO correct Nix example above
+** DONE correct Nix example above
+CLOSED: [2022-07-20 Wed 14:07]
 
 The example in Installation section shows a lot of red on Github. Better fix it.
 

@@ -2,20 +2,25 @@ This is a [[https://github.com/doomemacs/doomemacs][doom emacs]] configuration t
 
 * Installation
 
-Add following to ~configuration.nix~:
+Add following to ~flake.nix~:
 
 #+BEGIN_SRC nix
-inputs = {
-  my-doom-config = {
-    url = "github:VTimofeenko/doom-config";
+{
+  inputs = {
+    # ...
+    my-doom-config = {
+      url = "github:VTimofeenko/doom-config";
+    };
   };
-  ...
-};
-outputs = inputs@{ ... }: {
-  ...
-    { # Wherever modules are defined
-      home-manager.users.username = inputs.my-doom-config.nixosModules.default;
-    }
+  outputs = inputs@{ nixpkgs, ... }: {
+    nixosConfigurations.machineName = nixpkgs.lib.nixosSystem {
+      modules = [
+        {
+          home-manager.users.userName = inputs.my-doom-config.nixosModules.default;
+        }
+      ];
+    };
+  };
 }
 #+END_SRC
 
