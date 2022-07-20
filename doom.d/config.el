@@ -176,3 +176,6 @@
 
 ;; Change archive location
 (setq org-archive-location ".archive/%s_archive::")
+
+;; Add lines of context
+(setq scroll-margin 5)
