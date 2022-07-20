@@ -2,14 +2,18 @@
 
 * To be done:
 
-** TODO proper desktop shortcut for Nix
+** DONE proper desktop shortcut for Nix
+CLOSED: [2022-07-20 Wed 14:02]
 
 ** TODO correct Nix example above
 
 The example in Installation section shows a lot of red on Github. Better fix it.
 
 ** TODO org-tangle
-** TODO org-journal
+** NO org-journal
+CLOSED: [2022-07-20 Wed 14:02]
+
+Will use ~<SPC>-n-n-j~ for now
 ** TODO auto-tangle for literate stuff
 
 * Bookmarks
