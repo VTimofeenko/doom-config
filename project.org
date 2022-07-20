@@ -8,6 +8,10 @@
 
 The example in Installation section shows a lot of red on Github. Better fix it.
 
+** TODO org-tangle
+** TODO org-journal
+** TODO auto-tangle for literate stuff
+
 * Bookmarks
 
 - [[https://github.com/Mic92/dotfiles/blob/master/nixpkgs-config/modules/emacs/default.nix][Mic92 dotfiles]], editor service reference. Reference for no-rebuild doom config.
