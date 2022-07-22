@@ -152,6 +152,9 @@
 ;; Keep the log within the heading
 (setq org-log-into-drawer "LOGBOOK")
 
+;; Add all files under ~/org to agenda
+(setq org-agenda-files (directory-files-recursively "~/org" "\\.org$"))
+
 ;; Spelling personal file location
 (setq ispell-personal-dictionary "~/.cache/aspell.pws")
 
