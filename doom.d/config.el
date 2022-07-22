@@ -124,10 +124,23 @@
                      '(
                        "m" "Meeting" entry
                        (file+headline "~/org/inbox.org" "Meetings")
-                       "* %T %?\n\nMet with%i"
+                       "* MEET %T %?\n\nMet with%i"
                        :prepend t :kill-buffer t
                        )
                      )
+        (setq org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
+                                  (sequence "MEET(m)")
+                                  (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+                                  (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
+        (setq org-todo-keywords-for-agenda '("TODO" "PROJ" "LOOP" "STRT" "WAIT" "HOLD" "IDEA" "DONE" "KILL" "[ ]" "[-]" "[?]" "[X]" "OKAY" "YES" "NO" "MEET"))
+        (set org-todo-keyword-faces '(("[-]" . +org-todo-active)
+                                      ("STRT" . +org-todo-active)
+                                      ("[?]" . +org-todo-onhold)
+                                      ("WAIT" . +org-todo-onhold)
+                                      ("HOLD" . +org-todo-onhold)
+                                      ("PROJ" . +org-todo-project)
+                                      ("NO" . +org-todo-cancel)
+                                      ("KILL" . +org-todo-cancel)))
         )
 
 ;; Diary setup
