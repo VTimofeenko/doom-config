@@ -22,6 +22,7 @@
             tree-sitter
             tree-sitter-langs
             nixpkgs-fmt
+            vterm
             # Broken as of Jul 18 2022
             # org-transclusion
           ];
