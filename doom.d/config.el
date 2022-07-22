@@ -208,3 +208,13 @@
 
 ;; Automatically format .nix files on save
 (add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode)
+
+(defun vt/insert-timestamp-now()
+  "Insert the current time stamp"
+  (interactive)
+  (org-insert-time-stamp (current-time) t t))
+
+(after! org
+  (map! :localleader
+        :prefix-map ("d"."datetime")
+        (:desc "Insert current time at cursor" "i" #'vt/insert-timestamp-now)))
