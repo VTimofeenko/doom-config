@@ -128,6 +128,15 @@
                        :prepend t :kill-buffer t
                        )
                      )
+        ;; Should shadow the default todo template
+        (add-to-list 'org-capture-templates
+                     '(
+                       "t" "Todo" entry
+                       (file+headline "~/org/inbox.org" "Tasks")
+                       "* TODO %?\n%i\n%a"
+                       :prepend t :kill-buffer t
+                       )
+                     )
         (setq org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
                                   (sequence "MEET(m)")
                                   (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
