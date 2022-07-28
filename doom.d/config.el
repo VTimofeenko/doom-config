@@ -216,6 +216,10 @@
     (prependq! evil-surround-pairs-alist pairs)
     (prependq! evil-embrace-evil-surround-keys (mapcar #'car pairs))))
 
+;; habit
+(after! org
+  (add-to-list 'org-modules 'org-habit)
+  (set 'org-habit-show-all-today t))
 
 (defun vt/insert-timestamp-now()
   "Insert the current time stamp"
