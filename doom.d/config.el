@@ -209,6 +209,14 @@
 ;; Automatically format .nix files on save
 (add-hook 'nix-mode-hook 'nixpkgs-fmt-on-save-mode)
 
+
+;; Add custom surround for nix multiline variables
+(after! evil-surround
+  (let ((pairs '((?m "''\n" . "\n''"))))
+    (prependq! evil-surround-pairs-alist pairs)
+    (prependq! evil-embrace-evil-surround-keys (mapcar #'car pairs))))
+
+
 (defun vt/insert-timestamp-now()
   "Insert the current time stamp"
   (interactive)
