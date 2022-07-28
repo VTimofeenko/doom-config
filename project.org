@@ -16,6 +16,7 @@ CLOSED: [2022-07-20 Wed 14:02]
 
 Will use ~<SPC>-n-n-j~ for now
 ** TODO auto-tangle for literate stuff
+** DONE logview
 
 * Bookmarks
 

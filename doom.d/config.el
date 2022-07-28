@@ -218,3 +218,5 @@
   (map! :localleader
         :prefix-map ("d"."datetime")
         (:desc "Insert current time at cursor" "i" #'vt/insert-timestamp-now)))
+
+(setq datetime-timezone #'US/Pacific)

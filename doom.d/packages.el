@@ -60,3 +60,5 @@
 
 ;; Auto format nix files on save
 (package! nixpkgs-fmt)
+;; Ability to read logs
+(package! logview)

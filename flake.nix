@@ -22,6 +22,7 @@
             tree-sitter
             tree-sitter-langs
             nixpkgs-fmt
+            logview
             # Broken as of Jul 18 2022
             # org-transclusion
           ];
