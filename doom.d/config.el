@@ -211,8 +211,8 @@
   ;; https://github.com/nobiot/org-transclusion/issues/52
   (advice-remove 'org-link-search '+org--recenter-after-follow-link-a)
   (use-package! org-transclusion
-                :after org
-                :init))
+    :after org
+    :init))
 
 ;; Change archive location
 (setq org-archive-location ".archive/%s_archive::")
