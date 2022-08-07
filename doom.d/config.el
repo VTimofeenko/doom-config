@@ -121,38 +121,51 @@
 
 ;; Custom template to capture a meeting
 (after! org
-        (add-to-list 'org-capture-templates
-                     '(
-                       "m" "Meeting" entry
-                       (file+headline "~/org/inbox.org" "Meetings")
-                       "* MEET %T %?\n\nMet with%i"
-                       :prepend t :kill-buffer t
-                       )
-                     )
-        ;; Should shadow the default todo template
-        (add-to-list 'org-capture-templates
-                     '(
-                       "t" "Todo" entry
-                       (file+headline "~/org/inbox.org" "Tasks")
-                       "* TODO %?\n%i\n%a"
-                       :prepend t :kill-buffer t
-                       )
-                     )
-        (setq org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
-                                  (sequence "MEET(m)")
-                                  (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
-                                  (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
-        (setq org-todo-keywords-for-agenda '("TODO" "PROJ" "LOOP" "STRT" "WAIT" "HOLD" "IDEA" "DONE" "KILL" "[ ]" "[-]" "[?]" "[X]" "OKAY" "YES" "NO" "MEET"))
-        (setq org-todo-keyword-faces '(("[-]" . +org-todo-active)
-                                       ("STRT" . +org-todo-active)
-                                       ("[?]" . +org-todo-onhold)
-                                       ("WAIT" . +org-todo-onhold)
-                                       ("HOLD" . +org-todo-onhold)
-                                       ("PROJ" . +org-todo-project)
-                                       ("NO" . +org-todo-cancel)
-                                       ("MEET" . +org-todo-active)
-                                       ("KILL" . +org-todo-cancel)))
-        )
+  (add-to-list 'org-capture-templates
+               '(
+                 "m" "Meeting" entry
+                 (file+headline "~/org/inbox.org" "Meetings")
+                 "* MEET %?\n%T\nMet with%i"
+                 :prepend t :kill-buffer t
+                 )
+               )
+  ;; Should shadow the default todo template
+  (add-to-list 'org-capture-templates
+               '(
+                 "t" "Todo" entry
+                 (file+headline "~/org/inbox.org" "Tasks")
+                 "* TODO %?\n%i\n%a"
+                 :prepend t :kill-buffer t
+                 )
+               )
+  (add-to-list 'org-capture-templates
+               '(
+                 "n" "Note" entry
+                 (file+headline "~/org/inbox.org" "Notes")
+                 "* %?\n"
+                 :prepend t :kill-buffer t))
+  (add-to-list 'org-capture-templates
+               '(
+                 "l" "New Project" entry
+                 (file+headline "~/org/inbox.org" "Projects")
+                 (function vt/arc42-capture-template)
+                 :prepend t :kill-buffer t))
+  (setq org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
+                            ;; Capture with "MEET" keyword, if I revisited it later and refiled stuff - move to "MEET_P"
+                            (sequence "MEET(m)" "|" "MEET_P")
+                            (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+                            (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
+  (setq org-todo-keywords-for-agenda '("TODO" "PROJ" "LOOP" "STRT" "WAIT" "HOLD" "IDEA" "DONE" "KILL" "[ ]" "[-]" "[?]" "[X]" "OKAY" "YES" "NO" "MEET" "MEET_P"))
+  (setq org-todo-keyword-faces '(("[-]" . +org-todo-active)
+                                 ("STRT" . +org-todo-active)
+                                 ("[?]" . +org-todo-onhold)
+                                 ("WAIT" . +org-todo-onhold)
+                                 ("HOLD" . +org-todo-onhold)
+                                 ("PROJ" . +org-todo-project)
+                                 ("NO" . +org-todo-cancel)
+                                 ("MEET" . +org-todo-active)
+                                 ("KILL" . +org-todo-cancel)))
+  )
 
 ;; Diary setup
 (setq diary-file "~/org/diary")
