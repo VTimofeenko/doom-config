@@ -85,7 +85,7 @@
 
 ;; Configure the terminal cursor to change
 (use-package! evil-terminal-cursor-changer
-              :hook (tty-setup . evil-terminal-cursor-changer-activate))
+  :hook (tty-setup . evil-terminal-cursor-changer-activate))
 
 ;; Make the line numbers more visible
 (custom-set-faces!
