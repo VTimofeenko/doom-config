@@ -246,3 +246,67 @@
         (:desc "Insert current time at cursor" "i" #'vt/insert-timestamp-now)))
 
 (setq datetime-timezone #'US/Pacific)
+
+;; Arc42-based project description
+;; See: https://www.innoq.com/en/blog/brief-introduction-to-arc42/
+;; Config inspired by Academic-doom-emacs-config:
+;; https://github.com/sunnyhasija/Academic-Doom-Emacs-Config
+(defun mkComment (str)
+  "Make an org-mode comment from string `str'"
+  (concat "# " str))
+(defun vt/arc42-capture-template ()
+  "Returns `org-capture' template string for new project.
+See `org-capture-templates' for more information."
+  (let* ((date (format-time-string (org-time-stamp-format  :inactive) (org-current-time)))
+         (title (read-from-minibuffer "Project Title: ")) ;Prompt to enter the post title
+         )
+    (mapconcat #'identity
+               `(
+                 ,(concat "* PROJ " title " [%]")
+                 ":PROPERTIES:"
+                 ,(concat ":CREATED_DATE: " date) ;Enter current date and time
+                 ":END:"
+                 ""
+                 "** Introduction and goals"
+                 ,(mkComment "Top three(max five) quality requirements")
+                 "*** [#A] Why do anything?"
+                 ""
+                 "*** [#A] Why now?"
+                 ""
+                 "*** Stakeholders"
+                 "| Who? | Expectation |"
+                 "|------+-------------|"
+                 "|      |             |"
+                 "** Constraints"
+                 ,(mkComment "Anything that constrains teams in design and implementation decisions, or decision about related processes. Constraints can sometimes go beyond individual systems and might valid for whole organizations and companies (e.g. company-wide technology choices or government regulations). Time and money are common constraints in many organizations.")
+                 "** Context and scope"
+                 ,(mkComment "The context delimits your system from its (external) communication partners (neighboring systems and users). It specifies or documents the external interfaces. You should always document the context from a business or domain perspective. If infrastructure or specific hardware plays an important role, you might also show a technical perspective.")
+                 "** Solution strategy"
+                 ,(mkComment "Summary of the fundamental decisions and solution strategies that shape the architecture: can include technology, top-level decomposition, approaches to achieve top quality goals and relevant organizational decisions.")
+                 "** Building block view"
+                 ,(mkComment "Usually, boxes and arrows, showing the high-level code structure of the system. To phrase it a little more formal: The building block view explains the static structure of the system and contains, abstractions of source-code. It refines the context view, where the complete system is depicted as a black box.")
+                 ,(mkComment "Level 1 contains the major subsystems, components or parts of the system. In some cases, this coarse overview provides enough structural overview.")
+                 ,(mkComment "Level 2 refines one or more elements from level 1: Create a separate white box (plus explanations) for every level-1 building block you would like to explain in detail.")
+                 "** Runtime view"
+                 ,(mkComment "The runtime view explains the behavior or processing of one or several building blocks. It serves as companion to the static building block view from section 5 above. The runtime view might explain important use cases or features, interactions at critical external interfaces, error and exception behavior")
+                 "** Deployment view"
+                 ,(mkComment "Software needs hardware to execute on, that’s where the deployment view comes into play: It shows the technical infrastructure with environments, computers, processors, networks and network topologies. In addition, it maps the software building blocks to those infrastructure elements.")
+                 "** Cross-cutting concepts"
+                 ,(mkComment "Overall, principal regulations and solution approaches relevant in multiple parts (→ cross-cutting) of the system. Concepts are often related to multiple building blocks. Include different topics like domain models, architecture patterns and -styles, rules for using specific technology and implementation rules.")
+                 "** Architecture decisions"
+                 ,(mkComment "Keep a collection of architecturally significant decisions that are important, expensive, critical, large scale or risky including rationales, that are not recorded elsewhere.")
+                 ,(mkComment "Please use your judgment to decide whether an architectural decision should be documented here or whether you better document it locally (e.g. within the building block view or any cross-cutting concept). You may have already captured the most important decisions of your architecture in the solution strategy.")
+                 ,(mkComment "See https://docs.arc42.org/section-9/ for ideas")
+                 "** Quality requirements"
+                 ,(mkComment "Quality requirements, often described as scenarios. You may use a quality tree to provide a high-level overview. The most important quality goals should have been already described in section 1.2. (quality).")
+                 ,(mkComment "Quality should ideally map to a user-facing scenario. 'User clicks on a widget - gets result in <100ms'")
+                 "** Risks and technical debt"
+                 ,(mkComment "Known technical risks or technical debt. What potential problems exist within or around the system? What does the development team feel miserable about.")
+                 ,(mkComment "In case somebody reviewed or audited your system, their findings might be included here.")
+                 "** Implementation plan [%]"
+                 ,(mkComment "Implementation tasks go here")
+                 "** Glossary"
+                 ,(mkComment "Important domain and technical terms that stakeholders use when discussing the system. Please include only specific terms - and avoid explaining REST, HTTPS or other words that have common explanations.")
+                 ,(mkComment "In addition, the glossary can serve as the translation reference if you work in a multi-language (international) environment.")
+                 "%?\n")          ;Place the cursor here
+               "\n")))
