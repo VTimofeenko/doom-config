@@ -62,3 +62,6 @@
 (package! nixpkgs-fmt)
 ;; Ability to read logs
 (package! logview)
+
+;; SQL workbook
+(package! ejc-sql)

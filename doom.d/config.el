@@ -212,7 +212,23 @@
   (advice-remove 'org-link-search '+org--recenter-after-follow-link-a)
   (use-package! org-transclusion
     :after org
-    :init))
+    :init)
+  (require 'ejc-sql)
+  (setq nrepl-sync-request-timeout 60)
+  (setq clomacs-httpd-default-port 8090) ; Use a port other than 8080.
+;; (ejc-create-connection
+;;  "demo-target"
+;;  :dependencies [[net.snowflake/snowflake-jdbc "3.13.22"] [net.java.dev.jna/jna "5.8.0"]]
+;;  :classname "net.snowflake.client.jdbc.SnowflakeDriver"
+;;  :classpath "FULL_PATH_TO_JAR_FILE"
+;;  :connection-uri "jdbc:snowflake://ACCOUNT_NAME.snowflakecomputing.com/?user=<USER>&password=<PASSWORD>&warehouse=<WH>"
+;; )
+;; Add a template for exportable sql with results
+;; This supports using emacs as a sql notebook-like with Snowflake
+  (after! org
+    (add-to-list 'org-structure-template-alist
+                 '("sql" . "src sql :exports both :eval no-export\n")))
+  )
 
 ;; Change archive location
 (setq org-archive-location ".archive/%s_archive::")
