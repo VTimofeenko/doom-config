@@ -4,6 +4,7 @@
 ;; sync' after modifying this file!
 
 
+;;; Code:
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Vladimir Timofeenko"
@@ -39,9 +40,10 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+(setq org-agenda-files (list "inbox.org" "agenda.org"
+                             "notes.org" "projects.org"))
+
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -175,9 +177,6 @@
 
 ;; Keep the log within the heading
 (setq org-log-into-drawer "LOGBOOK")
-
-;; Add all files under ~/org to agenda
-(setq org-agenda-files (directory-files-recursively "~/org" "\\.org$"))
 
 ;; Spelling personal file location
 (setq ispell-personal-dictionary "~/.cache/aspell.pws")
