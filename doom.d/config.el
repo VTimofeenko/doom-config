@@ -167,9 +167,9 @@
                                  ("KILL" . +org-todo-cancel)))
   )
 
-;; Diary setup
-(setq diary-file "~/org/diary")
-(setq org-agenda-include-diary t)
+;; ;; Diary setup
+;; (setq diary-file "~/org/diary")
+;; (setq org-agenda-include-diary t)
 ;; Ignore tasks that have SCHEDULED in future
 (setq org-agenda-todo-ignore-scheduled 'future)
 
