@@ -176,7 +176,7 @@
        yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 
-       :email
+       :(email +gmail +org)
        ;;(mu4e +org +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
