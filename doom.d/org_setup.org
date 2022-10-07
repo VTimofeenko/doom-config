@@ -239,7 +239,7 @@ However, there are a couple of technical steps that can be taken:
 (add-to-list 'org-capture-templates
              `("n" "Note" entry (file "inbox.org")
                ,(string-join '("* %?"
-                               ":PROPERTIES"
+                               ":PROPERTIES:"
                                ":CREATED: %U"
                                ":END:"
                                "/Context:/ %a")
