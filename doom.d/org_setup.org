@@ -380,6 +380,10 @@ When showing the "Can be done" list, it's useful to have a quick reference to th
                    (org-deadline-warning-days 0)))))))
 #+end_src
 
+**** TODO Remove scheduled tasks from 'can be done' :fix:
+
+**** TODO Sort 'can be done' tasks by priority :feat:
+
 **** TODO Rewrite this using add-to-list to maintain coherency in tangled file :chore:
 
 **** TODO Show task with duration as a continuous block :feat:
@@ -388,7 +392,13 @@ When showing the "Can be done" list, it's useful to have a quick reference to th
 
 Well that's the easiest part. Just go and do stuff.
 
+**** TODO Make sure the projects priorities propagate to the tasks
+
 ** Journaling process
+
+*** TODO Add a way to link the day note to the agenda :feat:
+
+Maybe a separate capture template like journal?
 
 ** Habits
 
@@ -403,3 +413,5 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 #+begin_src elisp
 )
 #+end_src
+* General stuff
+** TODO ispell setup works janky across machines :fix:
