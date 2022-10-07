@@ -1,3 +1,10 @@
+#+TITLE: My orgmode setup
+#+PROPERTY: header-args:elisp :tangle config.el :padline no
+#+TAGS: fix feat doc chore to_think
+#+TAGS: noexport
+
+* Intro :noexport:
+#+begin_src elisp
 ;;; $DOOMDIR/config.el --- Doom-emacs configuration file
 ;;; Commentary:
 ;;; Code:
@@ -60,6 +67,10 @@
           (insert (format "%s: \n" committype)))))))
 
 (setq git-commit-major-mode 'vt-git-commit-mode)
+#+end_src
+* Orgmode config
+** Intro :noexport:
+#+begin_src elisp
 (after! org
   (setq calendar-week-start-day 1)
   (setq org-log-done 'time)
@@ -90,6 +101,40 @@
         (:desc "Paste image from clipboard" "i" #'zz/org-download-paste-clipboard))
   (add-to-list 'org-modules 'org-habit)
   (set 'org-habit-show-all-today t)
+#+end_src
+** General philosophy
+
+This is mostly written to organize my own thoughts into some coherent narrative so that I stop stumbling over my own shoelaces with ad-hoc configuration.
+
+This is done on top of a pretty vanilla doom-emacs configuration.
+
+** GTD process implementation
+
+*** *Capture* anything that crosses your mind, nothing is too big or small
+
+As someone who uses orgmode to organize both my professional and personal life, I have four categories of incoming information:
+
+1. Tasks, containing some action to be done
+2. Notes, generally not actionable, or for future reference
+3. Meetings, for which notes should be taken
+4. Appointments, which are set sometime in the future
+
+The difference between the middle two is that for meetings I usually want to capture additional meta information, like when the meeting took place and who attended it.
+
+The three kinds of incoming information should easily distinguishable. To that end, there are two mechanisms:
+
+1. Keywords which denote the state of the task
+2. Tags
+
+I will be using a limited amount of TODO states, only tasks will have a keyword.
+
+Meetings will be marked as ":meeting:" tag and have no keyword assigned.
+
+Notes will not have a keyword or a tag at their creation.
+
+Tasks and notes will have a property that captures when they were created.
+
+#+begin_src elisp
 (setq org-capture-templates
       `(("t" "Task" entry (file "inbox.org")
          ,(string-join '("* TODO %?"
@@ -116,11 +161,40 @@
                          ":END:")
                        "\n"))
         ))
+#+end_src
+
+**** Task states
+
+In the spirit of simplicity, I will be using a limited set of task states:
+
+- TODO :: to be done in future
+- STRT :: being done right now
+- HOLD :: cannot proceed, needs some external blocker
+- DONE :: terminal state, task is done
+- CNCL :: terminal state, task canceled
+
+#+begin_src elisp
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STRT(s)" "HOLD(h)" "|" "DONE(d)" "CNCL(c)")))
+#+end_src
+
+With their semantic meanings expressed by org-todo-keyword-faces:
+#+begin_src elisp
 (setq org-todo-keyword-faces '(("STRT" . +org-todo-active)
                                ("HOLD" . +org-todo-onhold)
                                ("CNCL" . +org-todo-cancel)))
+#+end_src
+
+*** *Clarify* what you've captured into clear and concrete action steps.
+
+Clarification step involves two parts:
+
+1. Locating objects to clarify
+2. Editing an item for clarity, potentially breaking it into several items
+
+The first point will be implemented by a custom entry in ~org-agenda-custom-commands~:
+
+#+begin_src elisp
 (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ;; Only show entries with the tag "inbox" -- just in case some entry outside inbox.org still has that file
@@ -130,6 +204,29 @@
                  (org-agenda-hide-tags-regexp "inbox")
                  ;; The header of this section should be "Inbox: clarify and organize"
                  (org-agenda-overriding-header "\nInbox: clarify and organize\n")))))))
+#+end_src
+
+"Editing an item for clarity" is a bit more ambiguous term, since "clear" and "concrete" are hard to measure in technical terms.
+
+However, there are a couple of technical steps that can be taken:
+
+   1. Tasks can have an estimate, making it easier to pack into period when planning them. If I have an hour of free time - probably no point in tackling something that takes 2 hours to complete.
+
+      A list of estimates that can used will be specified in ~inbox.org~ as:
+
+      #+begin_src org
+      #+PROPERTY: Effort_ALL 0 0:05 0:10 0:15 0:30 0:45 1:00 2:00 4:00
+      #+end_src
+
+      Since this value is specified in the inbox.org file and org-capture-templates are added there - it's possible to estimate effort directly when capturing a task.
+
+   2. Make a captured task and note link back to the context they were taken in.
+
+      I will be using ~add-to-list~ to shadow the previous values in ~org-capture-templates~. The new versions of a task and note will have an extra line linking to the context they were taken in (placeholder ~%a~)
+
+      The downside of this approach is that "t" and "n" appear twice in capture list, but it's only cosmetic.
+
+      #+begin_src elisp
 (add-to-list 'org-capture-templates
              `("t" "Task" entry (file "inbox.org")
                ,(string-join '("* TODO %?"
@@ -147,6 +244,75 @@
                                ":END:"
                                "/Context:/ %a")
                              "\n")))
+      #+end_src
+
+
+
+**** TODO List tasks with huge(>1h) efforts as candidates for breaking down into smaller chunks :feat:
+
+**** TODO Create a t-shirt size mapping with Effort_ALL :feat:
+
+I prefer XSmall, Small, Medium, Large, XLarge approach to effort estimates. In Youtrack I have created a mapping between the two. Would be convenient to have it in the orgmode.
+
+**** TODO Consider "CREATED" prop for headings entered inline. :to_think:
+
+[[https://stackoverflow.com/questions/12262220/add-created-date-property-to-todos-in-org-mode][Here's]] an implementation of this
+
+**** TODO Fix extra entries in capture list :fix:
+
+There are duplicates in the capture list because of add-to-list behavior. Not very important since only cosmetic.
+
+*** *Organize* and put everything into the right place.
+
+1. The end-result of organization - empty inbox
+2. Tasks get refiled into specific projects
+3. Tasks that don't map to a project go to a special section of agenda
+4. Meetings get refiled into journal inside agenda
+5. Notes get refiled into specific project
+6. Notes without a project go to notes.org
+
+Since I could not make the setup below work, the refiling is just something I will have to do mentally.
+
+**** TODO Context-dependent refile targets :feat:
+Implementation of this approach would require context-dependent refile targets -- something that is not present in default emacs. However, it can be exnteded to support this (source: [[https://emacs.stackexchange.com/questions/24976/org-mode-can-you-set-up-context-dependent-refile-targets][StackOverflow]]):
+
+#+begin_src elisp :tangle no
+(require 'dash)
+
+(defvar org-refile-contexts "Contexts for `org-capture'.
+
+Takes the same values as `org-capture-templates-contexts' except
+that the first value of each entry should be a valid setting for
+`org-refile-targets'.")
+
+(defun org-refile--get-context-targets ()
+  "Get the refile targets for the current headline.
+
+Returns the first set of targets in `org-refile-contexts' that
+the current headline satisfies, or `org-refile-targets' if there
+are no such."
+  (or (car (-first (lambda (x)
+                     (org-contextualize-validate-key
+                      (car x)
+                      org-refile-contexts))
+                   org-refile-contexts
+                   ))
+      org-refile-targets)
+  )
+
+(defun org-refile-with-context (&optional arg default-buffer rfloc msg)
+  "Refile the headline to a location based on `org-refile-targets'.
+
+Changes the set of available refile targets based on `org-refile-contexts', but is otherwise identical to `org-refile'"
+  (interactive "P")
+  (let ((org-refile-targets (org-refile--get-context-targets)))
+    (org-refile arg default-buffer rfloc msg)
+    ))
+#+end_src
+
+Now, to implement the requirements at the beginning of this section:
+
+#+begin_src elisp
 (setq org-refile-contexts
       '((((("inbox.org") . (:regexp . "Projects"))) ;; example
          ((lambda () (string= (org-find-top-headline) "Inbox")))
@@ -157,6 +323,17 @@
          ((lambda () ('regexp ":my_type:")))
          )
         ))
+#+end_src
+
+Journal-like results could be achieved through ~(file+olp+datetree)~
+
+*** *Review*, update, and revise your lists.
+
+The idea behind the implementation is to create a view to help move tasks along from triage, into refiled into started and ultimately done.
+
+When showing the "Can be done" list, it's useful to have a quick reference to the day's agenda to see if I can actually fit something.
+
+#+begin_src elisp
 (setq org-agenda-files (list "inbox.org" "agenda.org"
                              "notes.org" "projects.org"))
 (setq org-agenda-custom-commands
@@ -201,4 +378,28 @@
           (agenda nil
                   ((org-scheduled-past-days 0)
                    (org-deadline-warning-days 0)))))))
+#+end_src
+
+**** TODO Rewrite this using add-to-list to maintain coherency in tangled file :chore:
+
+**** TODO Show task with duration as a continuous block :feat:
+
+*** *Engage* Get to work on the important stuff.
+
+Well that's the easiest part. Just go and do stuff.
+
+** Journaling process
+
+** Habits
+
+** File organization
+
+My ~~/org/~ directory should be as clean as possible with only the following files present:
+
+- ~inbox.org~ :: file for incoming notes
+- ~agenda.org~ :: file for
+
+** Outro :noexport:
+#+begin_src elisp
 )
+#+end_src
