@@ -347,7 +347,8 @@ When showing the "Can be done" list, it's useful to have a quick reference to th
           (todo "TODO"
                 ((org-agenda-skip-function
                   '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-files (list "agenda.org" "notes.org" "projects.org")) (org-agenda-prefix-format "  %i %-12:c [%e] ")
+                 (org-agenda-files (list "agenda.org" "notes.org" "projects.org"))
+                 (org-agenda-prefix-format "  %i %-12:c [%e] ")
                  (org-agenda-max-entries 5)
                  (org-agenda-overriding-header "\nTasks: Can be done\n")))
           ;; Show agenda around today
