@@ -1,6 +1,6 @@
 #+TITLE: My orgmode setup
 #+PROPERTY: header-args:elisp :tangle config.el :padline no
-#+TAGS: fix feat doc chore to_think
+#+TAGS: fix(b) feat(f) doc(d) chore(c) to_think(t)
 #+TAGS: noexport
 
 * Intro :noexport:
