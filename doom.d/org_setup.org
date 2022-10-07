@@ -417,3 +417,5 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 #+end_src
 * General stuff
 ** TODO ispell setup works janky across machines :fix:
+** TODO Move the file to the root of the project :chore:
+** TODO Add Excalidraw drawings to the sections :chore:
