@@ -169,8 +169,9 @@
           ;; Show tasks that can be started and their estimates, do not show inbox
           (todo "TODO"
                 ((org-agenda-skip-function
-                  '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-files (list "agenda.org" "notes.org" "projects.org")) (org-agenda-prefix-format "  %i %-12:c [%e] ")
+                  '(org-agenda-skip-entry-if 'deadline 'scheduled))
+                 (org-agenda-files (list "agenda.org" "notes.org" "projects.org"))
+                 (org-agenda-prefix-format "  %i %-12:c [%e] ")
                  (org-agenda-max-entries 5)
                  (org-agenda-overriding-header "\nTasks: Can be done\n")))
           ;; Show agenda around today
