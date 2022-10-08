@@ -411,6 +411,10 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 - ~inbox.org~ :: file for incoming notes
 - ~agenda.org~ :: file for
 
+** References
+
+- [[https://www.labri.fr/perso/nrougier/GTD/index.html][GET THINGS DONE WITH EMACS]] by NICOLAS P. ROUGIER
+
 ** Outro :noexport:
 #+begin_src elisp
 )
