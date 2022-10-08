@@ -390,6 +390,8 @@ CLOSED: [2022-10-07 Fri 12:26]
 
 **** TODO Show task with duration as a continuous block :feat:
 
+Maybe like [[https://emacs.stackexchange.com/questions/5395/show-free-blocks-of-time-in-org-modes-agenda][so]]?
+
 *** *Engage* Get to work on the important stuff.
 
 Well that's the easiest part. Just go and do stuff.
@@ -431,6 +433,7 @@ CLOSED: [2022-10-07 Fri 19:15]
 
 * Project chores
 ** TODO Rework the flake to minimize rebuilds :chore:
+** TODO Add sections for the flake and rest of config :chore:
 
 * Project references
 - [[https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/][Zzamboni literate config]]
