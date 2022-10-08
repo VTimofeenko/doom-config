@@ -415,6 +415,8 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 
 - [[https://www.labri.fr/perso/nrougier/GTD/index.html][GET THINGS DONE WITH EMACS]] by NICOLAS P. ROUGIER
 
+*** TODO Add other references :chore:
+
 ** Outro :noexport:
 #+begin_src elisp
 )
