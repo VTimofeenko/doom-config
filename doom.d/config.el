@@ -142,7 +142,7 @@
 (add-to-list 'org-capture-templates
              `("n" "Note" entry (file "inbox.org")
                ,(string-join '("* %?"
-                               ":PROPERTIES"
+                               ":PROPERTIES:"
                                ":CREATED: %U"
                                ":END:"
                                "/Context:/ %a")
