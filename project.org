@@ -426,6 +426,8 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 * General stuff
 ** TODO ispell setup works janky across machines :fix:
 ** TODO Language tool for spell/ortho checking :feat:
+
+Howto [[https://github.com/mhayashi1120/Emacs-langtool][here]]
 ** DONE Move the file to the root of the project :chore:
 CLOSED: [2022-10-07 Fri 19:15]
 ** TODO Add Excalidraw drawings to the sections :chore:
