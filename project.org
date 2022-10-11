@@ -381,6 +381,18 @@ When showing the "Can be done" list, it's useful to have a quick reference to th
                    (org-deadline-warning-days 0)))))))
 #+end_src
 
+To show the agenda in a more compact manner and skip a time line when something is scheduled:
+
+#+begin_src elisp
+(setq org-agenda-time-grid
+  '((daily today require-timed remove-match)
+    (800 1000 1200 1400 1600 1800 2000)
+    "......"
+    "----------------"))
+#+end_src
+
+When something is scheduled for a specified time slot (08:00, 10:00, etc.), only the scheduled item will be shown, not the full "08:00 ... ..." line.
+
 **** DONE Remove scheduled tasks from 'can be done' :fix:
 CLOSED: [2022-10-07 Fri 12:26]
 
@@ -388,9 +400,11 @@ CLOSED: [2022-10-07 Fri 12:26]
 
 **** TODO [#C] Rewrite this using add-to-list to maintain coherency in tangled file :chore:
 
-**** TODO Show task with duration as a continuous block :feat:
+**** CNCL Show task with duration as a continuous block :feat:
 
 Maybe like [[https://emacs.stackexchange.com/questions/5395/show-free-blocks-of-time-in-org-modes-agenda][so]]?
+
+Not sure how it's implementable now, but with the ~org-agenda-time-grid~ config is slightly better
 
 **** TODO Do not show tasks under a project that is on HOLD :feat:
 
