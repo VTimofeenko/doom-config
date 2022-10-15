@@ -112,6 +112,9 @@ This is done on top of a pretty vanilla doom-emacs configuration.
 
 *** *Capture* anything that crosses your mind, nothing is too big or small
 
+#+DOWNLOADED: screenshot @ 2022-10-14 20:04:13
+[[file:images/20221014-200413_capture.png]]
+
 As someone who uses orgmode to organize both my professional and personal life, I have four categories of incoming information:
 
 1. Tasks, containing some action to be done
@@ -186,6 +189,9 @@ With their semantic meanings expressed by org-todo-keyword-faces:
 #+end_src
 
 *** *Clarify* what you've captured into clear and concrete action steps.
+
+#+DOWNLOADED: screenshot @ 2022-10-14 20:04:51
+[[file:images/20221014-200451_clarify.png]]
 
 Clarification step involves two parts:
 
@@ -264,6 +270,9 @@ There are duplicates in the capture list because of add-to-list behavior. Not ve
 
 *** *Organize* and put everything into the right place.
 
+#+DOWNLOADED: screenshot @ 2022-10-14 20:06:08
+[[file:images/20221014-200608_organize.png]]
+
 1. The end-result of organization - empty inbox
 2. Tasks get refiled into specific projects
 3. Tasks that don't map to a project go to a special section of agenda
@@ -328,6 +337,9 @@ Now, to implement the requirements at the beginning of this section:
 Journal-like results could be achieved through ~(file+olp+datetree)~
 
 *** *Review*, update, and revise your lists.
+
+#+DOWNLOADED: screenshot @ 2022-10-14 20:09:41
+[[file:images/20221014-200941_review.png]]
 
 The idea behind the implementation is to create a view to help move tasks along from triage, into refiled into started and ultimately done.
 
@@ -463,7 +475,8 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 Howto [[https://github.com/mhayashi1120/Emacs-langtool][here]]
 ** DONE Move the file to the root of the project :chore:
 CLOSED: [2022-10-07 Fri 19:15]
-** TODO Add Excalidraw drawings to the sections :chore:
+** DONE Add Excalidraw drawings to the sections :chore:
+CLOSED: [2022-10-14 Fri 20:11]
 ** TODO Add better faces for priorities :feat:
 ** DONE Add tangle on save hook :feat:
 CLOSED: [2022-10-14 Fri 20:01]
