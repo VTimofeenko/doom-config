@@ -465,7 +465,8 @@ Howto [[https://github.com/mhayashi1120/Emacs-langtool][here]]
 CLOSED: [2022-10-07 Fri 19:15]
 ** TODO Add Excalidraw drawings to the sections :chore:
 ** TODO Add better faces for priorities :feat:
-** STRT Add tangle on save hook :feat:
+** DONE Add tangle on save hook :feat:
+CLOSED: [2022-10-14 Fri 20:01]
 ** TODO Add tangle on pre-commit hook :feat:
 ** TODO Integrate with TTRSS :feat:
 ** TODO Add auto-tangle back and forth :feat:
@@ -480,3 +481,7 @@ CLOSED: [2022-10-07 Fri 19:15]
 * Project references
 - [[https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/][Zzamboni literate config]]
 - [[https://github.com/Mic92/dotfiles/blob/master/nixpkgs-config/modules/emacs/default.nix][Mic92 dotfiles]], editor service reference. Reference for no-rebuild doom config.
+
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+;; End:
