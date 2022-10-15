@@ -396,9 +396,14 @@ When something is scheduled for a specified time slot (08:00, 10:00, etc.), only
 **** DONE Remove scheduled tasks from 'can be done' :fix:
 CLOSED: [2022-10-07 Fri 12:26]
 
-**** TODO [#A] Sort 'can be done' tasks by priority :feat:
+**** DONE [#A] Sort 'can be done' tasks by priority :feat:
+CLOSED: [2022-10-11 Tue 11:48]
+
+The current default sorting is sufficient
 
 **** TODO [#C] Rewrite this using add-to-list to maintain coherency in tangled file :chore:
+
+**** TODO [#C] Add periodic tasks that were complete today to the list of complete tasks :feat:
 
 **** CNCL Show task with duration as a continuous block :feat:
 
@@ -412,9 +417,13 @@ Applies to both "g" and "G" views.
 
 If I put a project on pause - I don't need to see its tasks
 
-**** TODO Add a view only for projects and their states
+**** TODO Add a view only for projects and their states :feat:
 
 Just include top-level headlines from the ~projects.org~ and their states. Maybe percentage of tasks if I can figure out how to do it.
+
+**** TODO Add effort/clocks to "Completed today" :feat:
+
+**** TODO Show recurring tasks that were completed today :feat:
 
 *** *Engage* Get to work on the important stuff.
 
@@ -456,7 +465,13 @@ Howto [[https://github.com/mhayashi1120/Emacs-langtool][here]]
 CLOSED: [2022-10-07 Fri 19:15]
 ** TODO Add Excalidraw drawings to the sections :chore:
 ** TODO Add better faces for priorities :feat:
+** STRT Add tangle on save hook :feat:
+** TODO Add tangle on pre-commit hook :feat:
+** TODO Integrate with TTRSS :feat:
 ** TODO Add auto-tangle back and forth :feat:
+** TODO Record this file's skeleton as default literate project file :feat:
+** TODO Add org capture from terminal :feat:
+** TODO Add notification mechanisms :feat:
 
 * Project chores
 ** TODO Rework the flake to minimize rebuilds :chore:

@@ -196,10 +196,15 @@
         ("G" "All tasks that can be done"
          ((todo "TODO"
                 ((org-agenda-skip-function
-                  '(org-agenda-skip-entry-if 'deadline))
+                  '(org-agenda-skip-entry-if 'deadline 'scheduled))
                  (org-agenda-files (list "agenda.org" "notes.org" "projects.org")) (org-agenda-prefix-format "  %i %-12:c [%e] ")
                  (org-agenda-overriding-header "\nTasks: Can be done\n")))
           (agenda nil
                   ((org-scheduled-past-days 0)
                    (org-deadline-warning-days 0)))))))
+(setq org-agenda-time-grid
+  '((daily today require-timed remove-match)
+    (800 1000 1200 1400 1600 1800 2000)
+    "......"
+    "----------------"))
 )
