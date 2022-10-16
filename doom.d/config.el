@@ -207,4 +207,43 @@
     (800 1000 1200 1400 1600 1800 2000)
     "......"
     "----------------"))
+;; taken from stackexchange
+;; https://emacs.stackexchange.com/questions/59357/custom-agenda-view-based-on-effort-estimates
+(defun fs/org-get-effort-estimate ()
+  "Return effort estimate when point is at a given org headline.
+If no effort estimate is specified, return nil."
+  (let ((limits (org-get-property-block)))
+    (save-excursion
+      (when (and limits                            ; when non-nil
+                 (re-search-forward ":Effort:[ ]*" ; has effort estimate
+                                    (cdr limits)
+                                    t))
+        (buffer-substring-no-properties (point)
+                                        (re-search-forward "[0-9:]*"
+                                                           (cdr limits)))))))
+(defun fs/org-search-for-quickpicks ()
+  "Display entries that have effort estimates inferior to 15.
+ARG is taken as a number."
+  (let ((efforts (mapcar 'org-duration-from-minutes (number-sequence 1 15 1)))
+        (next-entry (save-excursion (or (outline-next-heading) (point-max)))))
+    (unless (member (fs/org-get-effort-estimate) efforts)
+      next-entry)))
+(defun vt/org-search-for-long-tasks ()
+  "Display entries that have effort estimates longer than 1h "
+  (let ((efforts (mapcar 'org-duration-from-minutes (number-sequence 120 600 1)))
+        (next-entry (save-excursion (or (outline-next-heading) (point-max)))))
+    (unless (member (fs/org-get-effort-estimate) efforts)
+      next-entry)))
+
+(add-to-list 'org-agenda-custom-commands
+             '("E" "Efforts view"
+               ((alltodo ""
+                         ((org-agenda-skip-function 'fs/org-search-for-quickpicks)
+                          (org-agenda-overriding-header "Quick tasks")))
+                (alltodo ""
+                         ((org-agenda-skip-function 'vt/org-search-for-long-tasks)
+                          ;; For longer tasks - show how long they are
+                          (org-agenda-prefix-format "[%e] ")
+                          (org-agenda-overriding-header "Long tasks"))))))
+
 )

@@ -254,7 +254,8 @@ However, there are a couple of technical steps that can be taken:
 
 
 
-**** TODO [#A] List tasks with huge(>1h) efforts as candidates for breaking down into smaller chunks :feat:
+**** DONE [#A] List tasks with huge(>1h) efforts as candidates for breaking down into smaller chunks :feat:
+CLOSED: [2022-10-15 Sat 21:52]
 
 **** TODO Create a t-shirt size mapping with Effort_ALL :feat:
 
@@ -405,6 +406,52 @@ To show the agenda in a more compact manner and skip a time line when something 
 
 When something is scheduled for a specified time slot (08:00, 10:00, etc.), only the scheduled item will be shown, not the full "08:00 ... ..." line.
 
+A view with tasks that are quick and slow would be useful:
+
+1. Quick(<=15m) tasks can be neatly packed into focus times
+2. Slow(>=2h) tasks are candidates for breaking down
+
+#+begin_src elisp
+;; taken from stackexchange
+;; https://emacs.stackexchange.com/questions/59357/custom-agenda-view-based-on-effort-estimates
+(defun fs/org-get-effort-estimate ()
+  "Return effort estimate when point is at a given org headline.
+If no effort estimate is specified, return nil."
+  (let ((limits (org-get-property-block)))
+    (save-excursion
+      (when (and limits                            ; when non-nil
+                 (re-search-forward ":Effort:[ ]*" ; has effort estimate
+                                    (cdr limits)
+                                    t))
+        (buffer-substring-no-properties (point)
+                                        (re-search-forward "[0-9:]*"
+                                                           (cdr limits)))))))
+(defun fs/org-search-for-quickpicks ()
+  "Display entries that have effort estimates inferior to 15.
+ARG is taken as a number."
+  (let ((efforts (mapcar 'org-duration-from-minutes (number-sequence 1 15 1)))
+        (next-entry (save-excursion (or (outline-next-heading) (point-max)))))
+    (unless (member (fs/org-get-effort-estimate) efforts)
+      next-entry)))
+(defun vt/org-search-for-long-tasks ()
+  "Display entries that have effort estimates longer than 1h "
+  (let ((efforts (mapcar 'org-duration-from-minutes (number-sequence 120 600 1)))
+        (next-entry (save-excursion (or (outline-next-heading) (point-max)))))
+    (unless (member (fs/org-get-effort-estimate) efforts)
+      next-entry)))
+
+(add-to-list 'org-agenda-custom-commands
+             '("E" "Efforts view"
+               ((alltodo ""
+                         ((org-agenda-skip-function 'fs/org-search-for-quickpicks)
+                          (org-agenda-overriding-header "Quick tasks")))
+                (alltodo ""
+                         ((org-agenda-skip-function 'vt/org-search-for-long-tasks)
+                          ;; For longer tasks - show how long they are
+                          (org-agenda-prefix-format "[%e] ")
+                          (org-agenda-overriding-header "Long tasks"))))))
+#+end_src
+
 **** DONE Remove scheduled tasks from 'can be done' :fix:
 CLOSED: [2022-10-07 Fri 12:26]
 
@@ -465,6 +512,9 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 *** TODO Add other references :chore:
 
 ** Outro :noexport:
+#+begin_src elisp
+
+#+end_src
 #+begin_src elisp
 )
 #+end_src
