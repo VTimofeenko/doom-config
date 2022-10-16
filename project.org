@@ -476,9 +476,11 @@ Applies to both "g" and "G" views.
 
 If I put a project on pause - I don't need to see its tasks
 
-**** TODO Add a view only for projects and their states :feat:
+**** CNCL Add a view only for projects and their states :feat:
 
 Just include top-level headlines from the ~projects.org~ and their states. Maybe percentage of tasks if I can figure out how to do it.
+
+Since in my setup the projects are just headlines - best way to view this is to ~<S-TAB>~ in ~projects.org~.
 
 **** TODO Add effort/clocks to "Completed today" :feat:
 
