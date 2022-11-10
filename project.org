@@ -487,6 +487,8 @@ Since in my setup the projects are just headlines - best way to view this is to 
 
 **** TODO Show recurring tasks that were completed today :feat:
 
+**** TODO Show tasks without a set time at the top of the list :feat:
+
 *** *Engage* Get to work on the important stuff.
 
 Well that's the easiest part. Just go and do stuff.
