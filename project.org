@@ -521,8 +521,10 @@ While developing in literate programming style, I am using a certain set of lang
              '("nix" . "src nix\n"))
 #+end_src
 
-** Org-capture outside emacs
 *** TODO add the auto-tangle templates and useful tags here
+
+** Helpers
+*** Org-capture outside emacs
 
 Since apparently I still have operating system outside of Emacs - it's useful to be able to capture something in org-mode without having to switch to emacs. The quick capture function from this [[https://abelstern.nl/posts/emacs-quick-capture/][source]] helps by providing a wrapper around org-capture that appears in a popup window, captures what's needed and then disappears.
 
@@ -552,6 +554,65 @@ setsid -f emacsclient -q -c -e '(abs--quick-capture)' >/dev/null 2>&1
 #+end_src
 
 To bring up the capture window.
+
+*** Automatically change TODO state based on checkbox
+
+When working on a composite TODO, it saves a few keystrokes when the TODO state and the completion cookie get updated automatically. Taking the code from [[https://christiantietze.de/posts/2021/02/emacs-org-todo-doing-done-checkbox-cycling/][this source]]:
+
+#+begin_src elisp
+;; Changes the TODO state based on statistics cookie
+(defun org-todo-if-needed (state)
+  "Change header state to STATE unless the current item is in STATE already."
+  (unless (string-equal (org-get-todo-state) state)
+    (org-todo state)))
+
+(defun ct/org-summary-todo-cookie (n-done n-not-done)
+  "Switch header state to DONE when all subentries are DONE, to TODO when none are DONE, and to DOING otherwise"
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo-if-needed (cond ((= n-done 0)
+                               "TODO")
+                              ((= n-not-done 0)
+                               "DONE")
+                              (t
+                               "STRT")))))
+(add-hook 'org-after-todo-statistics-hook #'ct/org-summary-todo-cookie)
+
+(defun ct/org-summary-checkbox-cookie ()
+  "Switch header state to DONE when all checkboxes are ticked, to TODO when none are ticked, and to DOING otherwise"
+  (let (beg end)
+    (unless (not (org-get-todo-state))
+      (save-excursion
+        (org-back-to-heading t)
+        (setq beg (point))
+        (end-of-line)
+        (setq end (point))
+        (goto-char beg)
+        ;; Regex group 1: %-based cookie
+        ;; Regex group 2 and 3: x/y cookie
+        (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
+                               end t)
+            (if (match-end 1)
+                ;; [xx%] cookie support
+                (cond ((equal (match-string 1) "100%")
+                       (org-todo-if-needed "DONE"))
+                      ((equal (match-string 1) "0%")
+                       (org-todo-if-needed "TODO"))
+                      (t
+                       (org-todo-if-needed "STRT")))
+              ;; [x/y] cookie support
+              (if (> (match-end 2) (match-beginning 2)) ; = if not empty
+                  (cond ((equal (match-string 2) (match-string 3))
+                         (org-todo-if-needed "DONE"))
+                        ((or (equal (string-trim (match-string 2)) "")
+                             (equal (match-string 2) "0"))
+                         (org-todo-if-needed "TODO"))
+                        (t
+                         (org-todo-if-needed "STRT")))
+                (org-todo-if-needed "DOING"))))))))
+(add-hook 'org-checkbox-statistics-hook #'ct/org-summary-checkbox-cookie)
+;; Reset the child checkboxes when a todo task is repeated
+(add-hook 'org-todo-repeat-hook #'org-reset-checkbox-state-subtree)
+#+end_src
 
 ** References
 
