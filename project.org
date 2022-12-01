@@ -522,6 +522,7 @@ While developing in literate programming style, I am using a certain set of lang
 #+end_src
 
 ** Org-capture outside emacs
+*** TODO add the auto-tangle templates and useful tags here
 
 Since apparently I still have operating system outside of Emacs - it's useful to be able to capture something in org-mode without having to switch to emacs. The quick capture function from this [[https://abelstern.nl/posts/emacs-quick-capture/][source]] helps by providing a wrapper around org-capture that appears in a popup window, captures what's needed and then disappears.
 
