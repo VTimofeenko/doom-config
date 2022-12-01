@@ -54,9 +54,6 @@
 (package! openwith)
 ;; To embed screenshots
 (package! org-download)
-;; Add transclusion support, but only for mac
-(when (eq system-type 'darwin) ;; mac specific settings
-  (package! org-transclusion))
 
 ;; Auto format nix files on save
 (package! nixpkgs-fmt)

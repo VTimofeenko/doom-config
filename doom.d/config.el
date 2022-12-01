@@ -27,11 +27,6 @@
            nil)))
     (org-download-clipboard file)))
 (when (eq system-type 'darwin)
-  ;; https://github.com/nobiot/org-transclusion/issues/52
-  (advice-remove 'org-link-search '+org--recenter-after-follow-link-a)
-  (use-package! org-transclusion
-    :after org
-    :init)
   (require 'ejc-sql)
   (setq nrepl-sync-request-timeout 60)
   (setq clomacs-httpd-default-port 8090) ; Use a port other than 8080.
