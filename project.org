@@ -521,6 +521,37 @@ While developing in literate programming style, I am using a certain set of lang
              '("nix" . "src nix\n"))
 #+end_src
 
+** Org-capture outside emacs
+
+Since apparently I still have operating system outside of Emacs - it's useful to be able to capture something in org-mode without having to switch to emacs. The quick capture function from this [[https://abelstern.nl/posts/emacs-quick-capture/][source]] helps by providing a wrapper around org-capture that appears in a popup window, captures what's needed and then disappears.
+
+#+begin_src elisp
+(defun abs--quick-capture ()
+  ;; redefine the function that splits the frame upon org-capture
+  (defun abs--org-capture-place-template-dont-delete-windows (oldfun args)
+    (cl-letf (((symbol-function 'org-switch-to-buffer-other-window) 'switch-to-buffer))
+      (apply oldfun args)))
+
+  ;; run-once hook to close window after capture
+  (defun abs--delete-frame-after-capture ()
+    (delete-frame)
+    (remove-hook 'org-capture-after-finalize-hook 'abs--delete-frame-after-capture)
+    )
+
+  ;; set frame title
+  (set-frame-name "emacs org capture")
+  (add-hook 'org-capture-after-finalize-hook 'abs--delete-frame-after-capture)
+  (abs--org-capture-place-template-dont-delete-windows 'org-capture nil))
+#+end_src
+
+With this bit of code, OS can trigger something like:
+
+#+begin_src shell :tangle no
+setsid -f emacsclient -q -c -e '(abs--quick-capture)' >/dev/null 2>&1
+#+end_src
+
+To bring up the capture window.
+
 ** References
 
 - [[https://www.labri.fr/perso/nrougier/GTD/index.html][GET THINGS DONE WITH EMACS]] by NICOLAS P. ROUGIER
