@@ -240,5 +240,11 @@ ARG is taken as a number."
                           ;; For longer tasks - show how long they are
                           (org-agenda-prefix-format "[%e] ")
                           (org-agenda-overriding-header "Long tasks"))))))
+(add-to-list 'org-structure-template-alist
+             '("elisp" . "src elisp\n"))
+(add-to-list 'org-structure-template-alist
+             '("lua" . "src lua\n"))
+(add-to-list 'org-structure-template-alist
+             '("nix" . "src nix\n"))
 
 )

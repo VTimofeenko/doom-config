@@ -508,6 +508,19 @@ My ~~/org/~ directory should be as clean as possible with only the following fil
 - ~inbox.org~ :: file for incoming notes
 - ~agenda.org~ :: file for
 
+** Literate programming
+
+While developing in literate programming style, I am using a certain set of languages -- these structures help quickly add common code blocks to the documents:
+
+#+begin_src elisp
+(add-to-list 'org-structure-template-alist
+             '("elisp" . "src elisp\n"))
+(add-to-list 'org-structure-template-alist
+             '("lua" . "src lua\n"))
+(add-to-list 'org-structure-template-alist
+             '("nix" . "src nix\n"))
+#+end_src
+
 ** References
 
 - [[https://www.labri.fr/perso/nrougier/GTD/index.html][GET THINGS DONE WITH EMACS]] by NICOLAS P. ROUGIER
