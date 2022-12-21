@@ -1,7 +1,23 @@
-#+TITLE: My orgmode setup
+#+TITLE: My doom-emacs setup
+#+AUTHOR: Vladimir Timofeenko
+#+EMAIL: id@vtimofeenko.com
+#+DATE: <2022-12-20 Tue>
 #+PROPERTY: header-args:elisp :tangle doom.d/config.el :padline no
+#+TAGS[]:
 #+TAGS: fix(b) feat(f) doc(d) chore(c) to_think(t)
 #+TAGS: noexport
+#+HUGO_BASE_DIR: ~/Documents/vtimofeenko.com/
+#+HUGO_SECTION: posts
+#+HUGO_LEVEL_OFFSET: 0
+#+HUGO_CODE_FENCE: nil
+#+EXPORT_FILE_NAME: doom-emacs config
+
+A literate programming Doom emacs setup centered around GTD and Nix development.
+
+#+hugo: more
+
+The full source of my config is [[https://github.com/VTimofeenko/doom-config][here]].
+
 
 * Intro :noexport:
 #+begin_src elisp
@@ -645,15 +661,28 @@ CLOSED: [2022-10-14 Fri 20:01]
 ** TODO Record this file's skeleton as default literate project file :feat:
 ** TODO Add org capture from terminal :feat:
 ** TODO Add notification mechanisms :feat:
+** TODO Disable spell check in local variables :chore:
 
-* Project chores
+* Project chores :noexport:
 ** TODO Rework the flake to minimize rebuilds :chore:
 ** TODO Add sections for the flake and rest of config :chore:
+** TODO Add template for Nix project file :feat:
+** TODO Add development shell with pngquant :chore:
 
 * Project references
 - [[https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/][Zzamboni literate config]]
 - [[https://github.com/Mic92/dotfiles/blob/master/nixpkgs-config/modules/emacs/default.nix][Mic92 dotfiles]], editor service reference. Reference for no-rebuild doom config.
 
+* Literate setup :noexport:
+
+A few scripts to be automatically run:
+
+- When the file is saved - tangle all code blocks
+- On save export the file to a hugo markdown
+- On save optimize all pngs using pngquant
+
 ;; Local Variables:
 ;; eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+;; eval: (add-hook 'after-save-hook 'org-hugo-export-to-md t t)
+;; eval: (add-hook 'after-save-hook (lambda()(shell-command "nix run nixpkgs#pngquant -- --ext .png --force ~/Documents/vtimofeenko.com/static/ox-hugo/*.png")))
 ;; End:
