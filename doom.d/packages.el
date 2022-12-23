@@ -62,3 +62,6 @@
 
 ;; SQL workbook
 (package! ejc-sql)
+
+;; For editing csvs
+(package! csv-mode)

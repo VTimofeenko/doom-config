@@ -23,6 +23,7 @@
             tree-sitter-langs
             nixpkgs-fmt
             logview
+            csv-mode
           ];
         };
         home.packages = with pkgs; [
