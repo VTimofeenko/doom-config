@@ -314,5 +314,24 @@ ARG is taken as a number."
 (add-hook 'org-checkbox-statistics-hook #'ct/org-summary-checkbox-cookie)
 ;; Reset the child checkboxes when a todo task is repeated
 (add-hook 'org-todo-repeat-hook #'org-reset-checkbox-state-subtree)
+(add-to-list 'org-agenda-custom-commands
+             '("h" "home maintenance"
+               ((agenda ""
+                        ((org-agenda-span 7)
+                         (org-agenda-start-on-weekday 1)
+                         (org-agenda-time-grid nil)
+                         (org-agenda-repeating-timestamp-show-all t)
+                         (org-agenda-prefix-format "%-12c:   ")
+                         (org-agenda-hide-tags-regexp "home_maintenance") ;; [2]
+                         (org-agenda-sorting-strategy '((agenda priority-down category-up time-up)
+                                                        (todo priority-down category-keep)
+                                                        (tags priority-down category-keep)
+                                                        (search category-keep)))
+
+                         (org-agenda-todo-keyword-format "") ;; [3]
+                         (org-agenda-tag-filter-preset '("+home_maintenance")) ;; [1]
+                         )))
+               nil
+               ("~/code/infra/services/dashy/home_maint.html")))
 
 )

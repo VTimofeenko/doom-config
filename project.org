@@ -630,6 +630,46 @@ When working on a composite TODO, it saves a few keystrokes when the TODO state 
 (add-hook 'org-todo-repeat-hook #'org-reset-checkbox-state-subtree)
 #+end_src
 
+**** TODO Add a property to not trigger this automatically for counter-only headlines :feat:
+
+*** A custom home_maintenance view that is published locally
+
+I maintain a list of chores in a set of headlines tagged "home_maintenance". To share that list - it can be published on an internal webserver (last argument for ~org-agenda-custom-commands~).
+
+The custom command retrieves all headlines with tags "home_maintenance"(~[1]~), but does not display that actual tag (~[2]~).
+
+The state of the keyword (TODO/STRT/whatever) does not matter; as long as the task is not complete -- it will show up in the list (~[3]~);
+
+#+begin_src elisp
+(add-to-list 'org-agenda-custom-commands
+             '("h" "home maintenance"
+               ((agenda ""
+                        ((org-agenda-span 7)
+                         (org-agenda-start-on-weekday 1)
+                         (org-agenda-time-grid nil)
+                         (org-agenda-repeating-timestamp-show-all t)
+                         (org-agenda-prefix-format "%-12c:   ")
+                         (org-agenda-hide-tags-regexp "home_maintenance") ;; [2]
+                         (org-agenda-sorting-strategy '((agenda priority-down category-up time-up)
+                                                        (todo priority-down category-keep)
+                                                        (tags priority-down category-keep)
+                                                        (search category-keep)))
+
+                         (org-agenda-todo-keyword-format "") ;; [3]
+                         (org-agenda-tag-filter-preset '("+home_maintenance")) ;; [1]
+                         )))
+               nil
+               ("~/code/infra/services/dashy/home_maint.html")))
+#+end_src
+
+Now, whenever I need to publish this config, I can just run:
+
+#+begin_src bash :tangle no
+emacsclient -eval '(org-batch-store-agenda-views)'
+#+end_src
+
+which will save that custom view to the specified directory.
+
 ** References
 
 - [[https://www.labri.fr/perso/nrougier/GTD/index.html][GET THINGS DONE WITH EMACS]] by NICOLAS P. ROUGIER
