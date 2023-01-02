@@ -265,7 +265,9 @@ ARG is taken as a number."
 ;; Changes the TODO state based on statistics cookie
 (defun org-todo-if-needed (state)
   "Change header state to STATE unless the current item is in STATE already."
-  (unless (string-equal (org-get-todo-state) state)
+  (unless (or
+           (string-equal (org-get-todo-state) state)
+           (string-equal (org-get-todo-state) nil)) ;; do not change item if it's not in a state
     (org-todo state)))
 
 (defun ct/org-summary-todo-cookie (n-done n-not-done)
