@@ -27,6 +27,7 @@
           ];
         };
         home.packages = with pkgs; [
+          ripgrep
           aspell
           aspellDicts.en
           aspellDicts.ru
