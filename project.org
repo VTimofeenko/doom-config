@@ -708,6 +708,28 @@ CLOSED: [2022-10-14 Fri 20:01]
 ** TODO Add org capture from terminal :feat:
 ** TODO Add notification mechanisms :feat:
 ** TODO Disable spell check in local variables :chore:
+** Snippets
+*** README template
+
+Source: [[https://github.com/hackergrrl/art-of-readme][hackergrrl/art-of-readme]]
+
+#+begin_src sh :tangle doom.d/snippets/fundamental-mode/README template
+# -*- mode: snippet -*-
+# name: README template
+# key: readme
+
+- One-liner explaining the purpose of the module
+- Necessary background context & links
+- Potentially unfamiliar terms link to informative sources
+- Clear, runnable example of usage
+- Installation instructions
+- Extensive API documentation
+- Performs cognitive funneling: https://github.com/hackergrrl/art-of-readme#cognitive-funneling
+- Caveats and limitations mentioned up-front
+- Doesn't rely on images to relay critical information
+- License
+
+#+end_src
 
 * Project chores :noexport:
 ** TODO Rework the flake to minimize rebuilds :chore:
