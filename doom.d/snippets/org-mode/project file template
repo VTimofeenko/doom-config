@@ -1,10 +1,10 @@
 # -*- mode: snippet -*-
 # name: project.org template
-# key: project
+# key: my custom project.org
+# --
+#+TAGS: { fix(b) feat(f) doc(d) chore(c) to_think(t) }
 
-#+TAGS: [ fix(b) feat(f) doc(d) chore(c) to_think(t) ]
-
- * Stats :noexport:
+* Stats :noexport:
 
 #+BEGIN: tagblock :todo ("DONE" "CNCL") :caption done :tags ("fix" "feat" "doc" "chore")
 #+END
@@ -13,8 +13,8 @@
 #+END
 
 
- * Literate setup :noexport:
- ** Tag stats calculator
+* Literate setup :noexport:
+** Tag stats calculator
 
 #+NAME: mkTagblock
 #+begin_src elisp
@@ -67,15 +67,17 @@
                                                              )))
                                 (t "%s"))
                           tags
-                          label
-                          )))
-\#+end_src
+                          label)))
 
- ** Local variables
+;;; tagblock definition ends here
+#+end_src
+
+** Local variables
 
 ;; Local Variables:
 ;; eval: (progn (org-babel-goto-named-src-block "mkTagblock") (org-babel-execute-src-block) (outline-hide-sublevels 1))
 ;; eval: (add-hook 'before-save-hook (lambda ()(org-babel-tangle)) nil t)
+;; eval: (add-hook 'before-save-hook (lambda ()(org-update-all-dblocks)) nil t)
 ;; eval: (add-hook 'after-save-hook (lambda ()(shell-command "nix fmt")) nil t)
 ;; eval: (add-hook 'after-save-hook 'org-hugo-export-to-md t t)
 ;; End:
