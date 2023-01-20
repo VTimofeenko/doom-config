@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: README template
 # key: readme
+# --
 
 - One-liner explaining the purpose of the module
 - Necessary background context & links

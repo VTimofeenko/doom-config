@@ -717,6 +717,7 @@ Source: [[https://github.com/hackergrrl/art-of-readme][hackergrrl/art-of-readme]
 # -*- mode: snippet -*-
 # name: README template
 # key: readme
+# --
 
 - One-liner explaining the purpose of the module
 - Necessary background context & links
