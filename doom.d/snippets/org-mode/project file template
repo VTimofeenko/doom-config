@@ -1,0 +1,81 @@
+# -*- mode: snippet -*-
+# name: project.org template
+# key: project
+
+#+TAGS: [ fix(b) feat(f) doc(d) chore(c) to_think(t) ]
+
+ * Stats :noexport:
+
+#+BEGIN: tagblock :todo ("DONE" "CNCL") :caption done :tags ("fix" "feat" "doc" "chore")
+#+END
+
+#+BEGIN: tagblock :todo t :caption todo :tags ("fix" "feat" "doc" "chore")
+#+END
+
+
+ * Literate setup :noexport:
+ ** Tag stats calculator
+
+#+NAME: mkTagblock
+#+begin_src elisp
+(require 'dash)
+(require 's)
+
+(defun org-freq-count (search targets &optional cmp)
+  (let ((cmp (if (functionp cmp)
+                 cmp
+               (lambda (a b) nil))))
+
+    (mapcar (lambda (x)
+              (list x (length (org-map-entries t (format search x) nil))))
+            (sort
+             (delete-dups
+              (-filter #'stringp targets))
+             cmp)
+            )))
+
+(defun org--tagblock-all-tags ()
+  (-filter #'stringp (-map #'car (append
+                                  (org-get-buffer-tags)
+                                  org-tag-alist
+                                  org-tag-persistent-alist))))
+
+(defun org-write-freq-count (search targets name)
+  (insert (s-concat
+           (if name (insert (format "#+NAME: %s\n" name)))
+           (mapconcat
+            (lambda (x) (format "| %s | %s |" (nth 0 x) (nth 1 x)))
+            (org-freq-count search targets)
+            "\n")))
+  (org-table-align))
+
+(defun org-dblock-write:tagblock (params)
+  (let ((todo (plist-get params :todo))
+        (tags (or (plist-get params :tags) (org--tagblock-all-tags)))
+        (label (plist-get params :label))
+        (caption (plist-get params :caption)))
+    (when caption (insert (format "#+CAPTION: %s\n" caption)))
+    (org-write-freq-count (cond ((equal todo t)
+                                 (format "%%s/%s" (mapconcat 'identity
+                                                             org-not-done-keywords
+                                                             "|"
+                                                             )))
+                                ((listp todo)
+                                 (format "%%s/%s" (mapconcat 'identity
+                                                             todo
+                                                             "|"
+                                                             )))
+                                (t "%s"))
+                          tags
+                          label
+                          )))
+\#+end_src
+
+ ** Local variables
+
+;; Local Variables:
+;; eval: (progn (org-babel-goto-named-src-block "mkTagblock") (org-babel-execute-src-block) (outline-hide-sublevels 1))
+;; eval: (add-hook 'before-save-hook (lambda ()(org-babel-tangle)) nil t)
+;; eval: (add-hook 'after-save-hook (lambda ()(shell-command "nix fmt")) nil t)
+;; eval: (add-hook 'after-save-hook 'org-hugo-export-to-md t t)
+;; End:
