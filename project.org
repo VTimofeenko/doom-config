@@ -684,10 +684,16 @@ which will save that custom view to the specified directory.
 
 ** Outro :noexport:
 #+begin_src elisp
-
-#+end_src
-#+begin_src elisp
 )
+#+end_src
+
+For a while now the default ivy grep was broken with ~Error running timer: (void-function consult--ripgrep-builder)~. The error comes from ~+default/search-project~ and is probably caused somewhere in nix-community's overlay.
+
+A quick way to fix is to override the ~<SPC>-/~ binding to a different callable.
+
+#+begin_src elisp
+(map! :leader :desc "Search project" "/" #'consult-ripgrep)
+
 #+end_src
 * General stuff
 ** TODO ispell setup works janky across machines :fix:

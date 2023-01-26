@@ -336,5 +336,5 @@ ARG is taken as a number."
                          )))
                nil
                ("~/code/infra/services/dashy/home_maint.html")))
-
 )
+(map! :leader :desc "Search project" "/" #'consult-ripgrep)
