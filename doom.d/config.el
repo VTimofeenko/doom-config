@@ -59,6 +59,7 @@
   (setq calendar-week-start-day 1)
   (setq org-log-done 'time)
   (setq org-log-into-drawer "LOGBOOK")
+  (setq org-fancy-priorities-list '("↑" "←" "↓"))
   ;; More intuitive link opening
   (map! :leader
         (
@@ -85,6 +86,7 @@
         (:desc "Paste image from clipboard" "i" #'zz/org-download-paste-clipboard))
   (add-to-list 'org-modules 'org-habit)
   (set 'org-habit-show-all-today t)
+  (set 'org-fancy-priorities-list '("↑" "←" "↓"))
 (setq org-capture-templates
       `(("t" "Task" entry (file "inbox.org")
          ,(string-join '("* TODO %?"
