@@ -699,6 +699,14 @@ A quick way to fix is to override the ~<SPC>-/~ binding to a different callable.
 
 #+end_src
 * General stuff
+** Speedbar config
+
+I don't care for images in speedbar:
+
+#+begin_src elisp
+(setq speedbar-use-images nil)
+#+end_src
+
 ** TODO ispell setup works janky across machines :fix:
 ** TODO Language tool for spell/ortho checking :feat:
 

@@ -63,3 +63,5 @@
 ;; SQL workbook
 (package! ejc-sql)
 
+;; In-window speedbar
+(package! sr-speedbar)

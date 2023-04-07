@@ -341,3 +341,4 @@ ARG is taken as a number."
                ("~/code/infra/services/dashy/home_maint.html")))
 )
 (map! :leader :desc "Search project" "/" #'consult-ripgrep)
+(setq speedbar-use-images nil)
