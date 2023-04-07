@@ -714,8 +714,10 @@ CLOSED: [2022-10-14 Fri 20:01]
 ** TODO Add tangle on pre-commit hook :feat:
 ** TODO Integrate with TTRSS :feat:
 ** TODO Add auto-tangle back and forth :feat:
-** TODO Record this file's skeleton as default literate project file :feat:
-** TODO Add org capture from terminal :feat:
+** DONE Record this file's skeleton as default literate project file :feat:
+CLOSED: [2023-04-06 Thu 17:56]
+** DONE Add org capture from terminal :feat:
+CLOSED: [2023-04-06 Thu 17:56]
 ** TODO Add notification mechanisms :feat:
 ** TODO Disable spell check in local variables :chore:
 ** Snippets
