@@ -15,6 +15,8 @@
   '(line-number-current-line :foreground "#9A70A4")
   '(line-number :foreground "#A1A19A")
   )
+;; Make the relative numbers disregard folds
+(setq display-line-numbers-type 'visual)
 (setq ispell-personal-dictionary "~/.cache/aspell.pws")
 (defun zz/org-download-paste-clipboard (&optional use-default-filename)
   (interactive "P")
