@@ -712,17 +712,17 @@ I don't care for images in speedbar:
 *** Nix LSP
 
 #+begin_src elisp
-(use-package lsp-mode
+(use-package! lsp-mode
   :ensure t)
 
-(use-package lsp-nix
+(use-package! lsp-nix
   :ensure lsp-mode
   :after (lsp-mode)
   :demand t
   :custom
   (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
 
-(use-package nix-mode
+(use-package! nix-mode
   :hook (nix-mode . lsp-deferred)
   :ensure t)
 #+end_src

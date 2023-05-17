@@ -35,6 +35,7 @@
           aspellDicts.en-computers
           aspellDicts.en-science
           nixpkgs-fmt
+          nil
         ];
         home.file.".aspell.conf".text = "data-dir ${pkgs.aspell}/lib/aspell";
         xdg.desktopEntries = {
