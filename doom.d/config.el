@@ -344,3 +344,16 @@ ARG is taken as a number."
 )
 (map! :leader :desc "Search project" "/" #'consult-ripgrep)
 (setq speedbar-use-images nil)
+(use-package lsp-mode
+  :ensure t)
+
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)

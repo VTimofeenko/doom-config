@@ -708,6 +708,24 @@ I don't care for images in speedbar:
 #+begin_src elisp
 (setq speedbar-use-images nil)
 #+end_src
+** Development
+*** Nix LSP
+
+#+begin_src elisp
+(use-package lsp-mode
+  :ensure t)
+
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)
+#+end_src
 
 ** TODO ispell setup works janky across machines :fix:
 ** TODO Language tool for spell/ortho checking :feat:
@@ -778,6 +796,7 @@ Does not make sense here - deploy script takes care of it centrally.
 * Project references
 - [[https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/][Zzamboni literate config]]
 - [[https://github.com/Mic92/dotfiles/blob/master/nixpkgs-config/modules/emacs/default.nix][Mic92 dotfiles]], editor service reference. Reference for no-rebuild doom config.
+
 
 * Literate setup :noexport:
 
