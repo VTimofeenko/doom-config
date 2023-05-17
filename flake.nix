@@ -24,6 +24,7 @@
             nixpkgs-fmt
             logview
             csv-mode
+            lsp-mode
           ];
         };
         home.packages = with pkgs; [
