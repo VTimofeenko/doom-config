@@ -11,48 +11,50 @@
   };
 
   outputs = { self, nixpkgs, nix-doom-emacs }: {
-    nixosModules.default = nixpkgs.lib.mkMerge [
-      nix-doom-emacs.hmModule
-      ({ pkgs, ... }: {
-        programs.emacs = {
-          extraPackages = epkgs: with epkgs; [
-            evil-terminal-cursor-changer
-            openwith
-            org-download
-            tree-sitter
-            tree-sitter-langs
-            nixpkgs-fmt
-            logview
-            csv-mode
-            lsp-mode
-          ];
-        };
-        home.packages = with pkgs; [
-          ripgrep
-          aspell
-          aspellDicts.en
-          aspellDicts.ru
-          aspellDicts.en-computers
-          aspellDicts.en-science
-          nixpkgs-fmt
-          nil
+    nixosModules.default = { ... }:
+      {
+        imports = [
+          nix-doom-emacs.hmModule
+          ({ pkgs, ... }: {
+            programs.emacs = {
+              extraPackages = epkgs: with epkgs; [
+                evil-terminal-cursor-changer
+                openwith
+                org-download
+                tree-sitter
+                tree-sitter-langs
+                nixpkgs-fmt
+                logview
+                csv-mode
+                lsp-mode
+              ];
+            };
+            home.packages = with pkgs; [
+              ripgrep
+              aspell
+              aspellDicts.en
+              aspellDicts.ru
+              aspellDicts.en-computers
+              aspellDicts.en-science
+              nixpkgs-fmt
+              nil
+            ];
+            home.file.".aspell.conf".text = "data-dir ${pkgs.aspell}/lib/aspell";
+            xdg.desktopEntries = {
+              emacs = {
+                name = "Emacs";
+                genericName = "Text editor";
+                exec = "emacs";
+                #icon = "${icon}";
+              };
+            };
+            programs.doom-emacs = {
+              enable = true;
+              doomPrivateDir = ./doom.d;
+            };
+          })
+
         ];
-        home.file.".aspell.conf".text = "data-dir ${pkgs.aspell}/lib/aspell";
-        xdg.desktopEntries = {
-          emacs = {
-            name = "Emacs";
-            genericName = "Text editor";
-            exec = "emacs";
-            #icon = "${icon}";
-          };
-        };
-      })
-      ({ ... }: {
-        programs.doom-emacs = {
-          enable = true;
-          doomPrivateDir = ./doom.d;
-        };
-      })
-    ];
+      };
   };
 }

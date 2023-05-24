@@ -15,9 +15,7 @@ Add following to ~flake.nix~:
   outputs = inputs@{ nixpkgs, ... }: {
     nixosConfigurations.machineName = nixpkgs.lib.nixosSystem {
       modules = [
-        {
-          home-manager.users.userName = inputs.my-doom-config.nixosModules.default;
-        }
+        inputs.my-doom-config.nixosModules.default;
       ];
     };
   };
