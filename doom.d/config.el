@@ -267,6 +267,10 @@ ARG is taken as a number."
   (set-frame-name "emacs org capture")
   (add-hook 'org-capture-after-finalize-hook 'abs--delete-frame-after-capture)
   (abs--org-capture-place-template-dont-delete-windows 'org-capture nil))
+(after! org
+  (setq org-export-with-superscripts '{})
+  (setq org-use-sub-scripts '{})
+  (setq org-export-with-section-numbers 'nil))
 ;; Changes the TODO state based on statistics cookie
 (defun org-todo-if-needed (state)
   "Change header state to STATE unless the current item is in STATE already."

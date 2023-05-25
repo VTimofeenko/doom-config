@@ -575,6 +575,16 @@ setsid -f emacsclient -q -c -e '(abs--quick-capture)' >/dev/null 2>&1
 #+end_src
 
 To bring up the capture window.
+*** Default export settings
+
+These settings disable sub/super scripts by default and export headlines as unordered list.
+
+#+begin_src elisp
+(after! org
+  (setq org-export-with-superscripts '{})
+  (setq org-use-sub-scripts '{})
+  (setq org-export-with-section-numbers 'nil))
+#+end_src
 
 *** Automatically change TODO state based on checkbox
 
