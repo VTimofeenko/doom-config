@@ -575,6 +575,38 @@ setsid -f emacsclient -q -c -e '(abs--quick-capture)' >/dev/null 2>&1
 #+end_src
 
 To bring up the capture window.
+
+*** Folding all other headlines
+
+This function (bound to ~<SPC> - l - c~ ) folds all headlines except for the current one.
+
+#+begin_src elisp
+(defun my-org-show-current-heading-tidily()
+  "Show current entry, keep other entries folded"
+  (interactive)
+  (if (save-excursion (end-of-line) (outline-invisible-p))
+      (progn (org-fold-show-entry) (outline-show-children))
+    (outline-back-to-heading)
+    (unless (and (bolp) (org-at-heading-p))
+      (org-up-heading-safe)
+      (outline-hide-subtree)
+      (error "Boundary reached"))
+    (org-overview)
+    (org-reveal t)
+    (org-fold-show-entry)
+    (outline-show-children)))
+
+(after! org
+  (map! :leader
+        (:prefix-map ("l" . "link")
+         :desc "Show only the current heading, fold all others"
+         "c"
+         'my-org-show-current-heading-tidily)))
+
+#+end_src
+
+**** TODO Walkable "fold mode" -- detect move to other headline and close everything else :feat:
+
 *** Default export settings
 
 These settings disable sub/super scripts by default and export headlines as unordered list.

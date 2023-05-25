@@ -267,6 +267,27 @@ ARG is taken as a number."
   (set-frame-name "emacs org capture")
   (add-hook 'org-capture-after-finalize-hook 'abs--delete-frame-after-capture)
   (abs--org-capture-place-template-dont-delete-windows 'org-capture nil))
+(defun my-org-show-current-heading-tidily()
+  "Show current entry, keep other entries folded"
+  (interactive)
+  (if (save-excursion (end-of-line) (outline-invisible-p))
+      (progn (org-fold-show-entry) (outline-show-children))
+    (outline-back-to-heading)
+    (unless (and (bolp) (org-at-heading-p))
+      (org-up-heading-safe)
+      (outline-hide-subtree)
+      (error "Boundary reached"))
+    (org-overview)
+    (org-reveal t)
+    (org-fold-show-entry)
+    (outline-show-children)))
+
+(after! org
+  (map! :leader
+        (:prefix-map ("l" . "link")
+         :desc "Show only the current heading, fold all others"
+         "c"
+         'my-org-show-current-heading-tidily)))
 (after! org
   (setq org-export-with-superscripts '{})
   (setq org-use-sub-scripts '{})
