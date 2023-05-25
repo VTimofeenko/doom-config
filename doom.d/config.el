@@ -271,7 +271,8 @@ ARG is taken as a number."
   "Show current entry, keep other entries folded"
   (interactive)
   (if (save-excursion (end-of-line) (outline-invisible-p))
-      (progn (org-fold-show-entry) (outline-show-children))
+      ;; (progn (org-fold-show-entry) (outline-show-children)) ;; TODO: see if org-fold.el is needed
+      (progn (org-show-entry) (outline-show-children))
     (outline-back-to-heading)
     (unless (and (bolp) (org-at-heading-p))
       (org-up-heading-safe)
@@ -279,7 +280,8 @@ ARG is taken as a number."
       (error "Boundary reached"))
     (org-overview)
     (org-reveal t)
-    (org-fold-show-entry)
+    ;; (org-fold-show-entry) ;; TODO: see if org-fold.el is needed
+    (org-show-entry)
     (outline-show-children)))
 
 (after! org

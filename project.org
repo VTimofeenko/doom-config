@@ -585,7 +585,8 @@ This function (bound to ~<SPC> - l - c~ ) folds all headlines except for the cur
   "Show current entry, keep other entries folded"
   (interactive)
   (if (save-excursion (end-of-line) (outline-invisible-p))
-      (progn (org-fold-show-entry) (outline-show-children))
+      ;; (progn (org-fold-show-entry) (outline-show-children)) ;; TODO: see if org-fold.el is needed
+      (progn (org-show-entry) (outline-show-children))
     (outline-back-to-heading)
     (unless (and (bolp) (org-at-heading-p))
       (org-up-heading-safe)
@@ -593,7 +594,8 @@ This function (bound to ~<SPC> - l - c~ ) folds all headlines except for the cur
       (error "Boundary reached"))
     (org-overview)
     (org-reveal t)
-    (org-fold-show-entry)
+    ;; (org-fold-show-entry) ;; TODO: see if org-fold.el is needed
+    (org-show-entry)
     (outline-show-children)))
 
 (after! org
