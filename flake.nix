@@ -1,7 +1,7 @@
 {
   description = "Flake that configures doom-emacs. Also usable as standalone by exporting DOOM_DIR";
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs.url = "nixpkgs/nixos-23.05";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     # File-specific fetching available from Nix 2.9
     # icon = {
