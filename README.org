@@ -1,3 +1,5 @@
+**Archive note**: this repo has been merged into my main dotfiles [[here][https://github.com/VTimofeenko/monorepo-machine-config/tree/master/flake-modules/emacs].
+
 This is a [[https://github.com/doomemacs/doomemacs][doom emacs]] configuration that is installable through Nix flake.
 
 * Installation
